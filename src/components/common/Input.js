@@ -62,7 +62,6 @@ const styles = {
   iconStyle: {
     fontSize: 20,
     color: '#bbb',
-    padding: 5,
     flex: 1,
     textAlign: 'center'
   },

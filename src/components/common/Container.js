@@ -14,7 +14,8 @@ const styles = {
   containerStyle: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    padding: 10
   }
 };
 

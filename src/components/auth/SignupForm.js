@@ -7,8 +7,8 @@ import {
   phoneChanged,
   passwordChanged,
   loginUser
-} from '../actions';
-import { Container, Row, Input, Button } from './common';
+} from '../../actions';
+import { Container, Row, Input, Button } from '../common';
 
 class SignupForm extends Component {
   onUsernameChange(text) {

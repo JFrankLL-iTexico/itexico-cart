@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { Container, Row, Input, Button } from './common';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
+import { Container, Row, Input, Button } from '../common';
 
 class LoginForm extends Component {
   onEmailChange(text) {
