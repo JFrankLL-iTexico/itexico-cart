@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { Row } from '.';
 
 class Input extends Component {
   constructor(props) {
@@ -19,9 +20,26 @@ class Input extends Component {
     this.setState({ focused: false });
   }
 
+  renderMiniTag(text) {
+    const { miniTagStyle } = styles;
+    let style = { color: '#00000000' };
+
+    if (this.state.focused) {
+      style = { ...miniTagStyle };
+    }
+
+    return (
+      <Text
+        style={style}
+      >
+        { text }
+      </Text>
+    );
+  }
+
   render() {
     const { icon, label, value, onChangeText, placeholder, secureTextEntry } = this.props;
-    const { focusedStyle, containerStyle } = styles;
+    const { focusedStyle, containerStyle, secureIconStyle } = styles;
     let { inputStyle, iconStyle } = styles;
     if (this.state.focused) {
       inputStyle = { ...inputStyle, ...focusedStyle };
@@ -29,17 +47,25 @@ class Input extends Component {
     }
     return (
       <View style={containerStyle}>
-        <Icon name={icon} style={iconStyle} />
-        <TextInput
-          style={inputStyle}
-          secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
-          value={value}
-          autoCorrect={false}
-          onChangeText={onChangeText}
-          onFocus={this.onInputFocus.bind(this)}
-          onBlur={this.onInputBlur.bind(this)}
-        />
+        <Row>
+          {this.renderMiniTag(placeholder)}
+        </Row>
+        <Row>
+          <Icon name={icon} style={iconStyle} />
+          <TextInput
+            style={inputStyle}
+            secureTextEntry={secureTextEntry}
+            placeholder={placeholder}
+            value={value}
+            autoCorrect={false}
+            onChangeText={onChangeText}
+            onFocus={this.onInputFocus.bind(this)}
+            onBlur={this.onInputBlur.bind(this)}
+          />
+          {secureTextEntry &&
+            <Icon name="eye" style={{ ...iconStyle, ...secureIconStyle }} />
+          }
+        </Row>
       </View>
     );
   }
@@ -65,18 +91,32 @@ const styles = {
     flex: 1,
     textAlign: 'center'
   },
+  secureIconStyle: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    margin: 'auto'
+  },
   labelStyle: {
     padding: 5,
     marginRight: 10,
     fontSize: 18,
     color: '#ccc'
   },
-  containerStyle: {
-    height: 'auto',
+  miniTagStyle: {
     flex: 1,
-    flexDirection: 'row',
+    marginLeft: 32,
+    fontSize: 14,
+    color: '#bbb',
+    textAlign: 'left'
+  },
+  containerStyle: {
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    padding: 5
+    padding: 5,
+    marginBottom: 32
   },
 };
 

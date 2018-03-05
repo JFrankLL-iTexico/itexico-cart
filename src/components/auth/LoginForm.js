@@ -13,6 +13,12 @@ class LoginForm extends Component {
     this.props.passwordChanged(text);
   }
 
+  onButtonPress() {
+    const { email, password } = this.props;
+
+    this.props.loginUser({ email, password });
+  }
+
   render() {
     return (
       <Container>
@@ -20,7 +26,7 @@ class LoginForm extends Component {
           <Input
             value={this.props.email}
             icon="user"
-            placeholder="mail@mail.com"
+            placeholder="Email"
             onChangeText={this.onEmailChange.bind(this)}
           />
         </Row>
@@ -30,14 +36,14 @@ class LoginForm extends Component {
             secureTextEntry
             value={this.props.password}
             icon="lock"
-            placeholder="password"
+            placeholder="Password"
             onChangeText={this.onPasswordChange.bind(this)}
           />
         </Row>
 
         <Row>
           <Button
-            onPress={() => {}}
+            onPress={this.onButtonPress.bind(this)}
           >
             LOGIN
           </Button>

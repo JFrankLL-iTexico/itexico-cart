@@ -4,6 +4,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
+  LOGOUT_USER,
   USERNAME_CHANGED,
   PHONE_CHANGED
 } from '../actions/types';
@@ -39,7 +40,9 @@ export default (state = INITIAL_STATE, action) => {
       };
     case LOGIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed.', password: '', loading: false };
-    default:
+    case LOGOUT_USER:
       return state;
+    default:
+    return state;
   }
 };

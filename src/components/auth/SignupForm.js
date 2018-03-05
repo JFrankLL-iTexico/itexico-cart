@@ -34,7 +34,7 @@ class SignupForm extends Component {
           <Input
             value={this.props.username}
             icon="user"
-            placeholder="username"
+            placeholder="User name"
             onChangeText={this.onUsernameChange.bind(this)}
           />
         </Row>

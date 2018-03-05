@@ -47,7 +47,7 @@ const styles = {
     flex: 1,
   },
   formsStyle: {
-    flex: 3
+    flex: 7
   }
 };
 
