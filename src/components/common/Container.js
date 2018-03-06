@@ -13,8 +13,7 @@ const Container = (props) => {
 const styles = {
   containerStyle: {
     flex: 1,
-    flexDirection: 'column',
-    padding: 10
+    flexDirection: 'column'
   }
 };
 

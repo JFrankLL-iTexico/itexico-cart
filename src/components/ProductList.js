@@ -1,17 +1,57 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import { fetchItems, addItemToCart } from '../actions';
+import Product from './Product';
 
 class ProductList extends Component {
+  componentWillMount() {
+    this.fetchItems();
+  }
+
+  onPressAddToCartButton() {
+    Actions.productDetail();
+    //this.props.addItemToCart();
+  }
+
+  fetchItems() {
+    this.props.fetchItems();
+  }
+
+  renderProducts() {
+    return this.props.items.map((item, idx) =>
+      <Product
+        key={`product-${idx}`} product={item}
+        addToCart={this.onPressAddToCartButton.bind(this)}
+      />
+    );
+  }
+
   render() {
     return (
-      <View>
-        <Text>Text</Text>
-        <Text>Text</Text>
-        <Text>Text</Text>
-        <Text>Text</Text>
-      </View>
+      <ScrollView contentContainerStyle={styles.listStyle}>
+        {this.renderProducts()}
+      </ScrollView>
     );
   }
 }
 
-export default ProductList;
+const styles = {
+  listStyle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  }
+};
+
+const mapStateToProps = ({ products }) => {
+  const { items } = products;
+
+  return { items };
+};
+
+export default connect(mapStateToProps, {
+  fetchItems,
+  addItemToCart
+})(ProductList);

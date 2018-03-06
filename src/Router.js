@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Actions, Scene, Router } from 'react-native-router-flux';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
+import { Scene, Router } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { logoutUser } from './actions';
 import AuthView from './components/auth/AuthView';
 import ProductList from './components/ProductList';
-import { logoutUser } from './actions';
+import ProductDetail from './components/ProductDetail';
+import Cart from './components/Cart';
+import Orders from './components/Orders';
+import BagIcon from './components/BagIcon';
 
-const TabIcon = ({ selected, title }) => {
+const TabIcon = ({ selected, iconName }) => {
+  const iconStyle = {
+    fontSize: 24,
+    color: '#8f8f8f',
+  };
   return (
-    <Text
-      style={{ color: selected ? 'green' : 'black' }}
-    >
-      {title}
-    </Text>
+    <Icon name={iconName} style={iconStyle} />
   );
 };
 
@@ -26,39 +31,44 @@ class RouterComponent extends Component {
               <Scene initial hideNavBar key="auth" component={AuthView} title="Home" />
             </Scene>
             <Scene key="main">
+              <Scene hideNavBar key="productDetail" component={ProductDetail} />
 
-              <Scene hideNavBar tabs key="tabbar" >
-                <Scene key="osu" title="1" icon={TabIcon}>
+              <Scene initial hideNavBar tabs key="tabbar" style={{ backgroundColor: '#333' }} >
+                <Scene key="tab-home" title="Home" iconName="home" icon={TabIcon}>
                   <Scene
                     key="productList"
                     component={ProductList}
-                    title="1"
+                    title="iTexico Products"
                     rightTitle="Logout"
                     onRight={this.props.logoutUser.bind(this)}
                   />
                 </Scene>
 
-                <Scene key="tab-2" title="tab-2" icon={TabIcon}>
+                <Scene
+                  key="tab-cart"
+                  title="Cart"
+                  icon={BagIcon}
+                  tab
+                >
                   <Scene
-                    key="tab-2-content"
-                    component={() => <View><Text>tab2</Text></View>}
-                    title="2"
+                    key="cart"
+                    component={Cart}
+                    title="Shopping Bag"
                     rightTitle="Logout"
                     onRight={this.props.logoutUser.bind(this)}
                   />
                 </Scene>
 
-                <Scene key="tab-3" title="tab-3" icon={TabIcon}>
+                <Scene key="tab-orders" title="Orders" iconName="user" icon={TabIcon}>
                   <Scene
-                    key="tab-3-content"
-                    component={() => <View><Text>tab3</Text></View>}
-                    title="3"
+                    key="orders"
+                    component={Orders}
+                    title="My Orders"
                     rightTitle="Logout"
                     onRight={this.props.logoutUser.bind(this)}
                   />
                 </Scene>
               </Scene>
-
             </Scene>
           </Scene>
         </Router>

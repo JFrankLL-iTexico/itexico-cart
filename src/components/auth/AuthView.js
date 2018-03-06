@@ -26,7 +26,7 @@ class AuthView extends Component {
     const { page } = this.state;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={headerStyle}>
           <Header
             page={this.state.page}

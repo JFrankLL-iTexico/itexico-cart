@@ -6,7 +6,6 @@ import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import Router from './Router';
-import FooterNav from './components/FooterNav';
 
 class App extends Component {
 
