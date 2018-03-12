@@ -18,7 +18,9 @@ import {
   SIGNIN_USER,
   CREATE_ORDER,
   FETCH_ORDERS,
-  FETCH_ORDERS_SUCCESS
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDER_PRODUCTS,
+  FETCH_ORDER_PRODUCTS_SUCCESS
 } from './types';
 
 export const usernameChanged = (text) => {
@@ -152,6 +154,27 @@ const fetchOrdersSuccess = (dispatch, orders) => {
     type: FETCH_ORDERS_SUCCESS,
     payload: orders
   });
+};
+
+export const fetchOrderProducts = (orderId) => {
+  const url = `http://localhost:3000/api/order/${orderId}/productsv2`;
+  return dispatch => {
+    dispatch({ type: FETCH_ORDER_PRODUCTS });
+    axios.get(url)
+      .then(response => {
+        fetchOrderProductsSuccess(dispatch, response.data);
+      }).catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+const fetchOrderProductsSuccess = (dispatch, products) => {
+  dispatch({
+    type: FETCH_ORDER_PRODUCTS_SUCCESS,
+    payload: products
+  });
+  Actions.orderDetail();
 };
 
 export const createOrder = body => {

@@ -10,7 +10,34 @@ const onMinusPress = ({ updateItemQty, _id, quantity }) => {
   updateItemQty(_id, quantity + (quantity > 0 ? -1 : 0));
 };
 
+const renderControls = (quantity, props) => {
+  const {
+    numberWrapperStyle,
+    inputStyle,
+    numberControlStyle
+  } = styles;
+  return (
+    <View style={numberWrapperStyle}>
+      <TouchableOpacity onPress={() => onPlusPress(props)}>
+        <View><Text style={numberControlStyle}>+</Text></View>
+      </TouchableOpacity>
+      <View>
+        <TextInput
+          keyboardType="numeric"
+          style={inputStyle}
+          value={quantity.toString()}
+          autoCorrect={false}
+        />
+      </View>
+      <TouchableOpacity onPress={() => onMinusPress(props)}>
+        <View><Text style={numberControlStyle}>-</Text></View>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const CartItem = (props) => {
+  console.log('popopopo', props);
   const {
     name,
     imageUrl,
@@ -28,10 +55,7 @@ const CartItem = (props) => {
     titleTextStyle,
     tagStyle,
     priceStyle,
-    altPriceStyle,
-    numberWrapperStyle,
-    inputStyle,
-    numberControlStyle
+    altPriceStyle
   } = styles;
 
   return (
@@ -53,22 +77,7 @@ const CartItem = (props) => {
               <Text style={altPriceStyle}>$ 4999</Text>
             </Row>
           </View>
-          <View style={numberWrapperStyle}>
-            <TouchableOpacity onPress={() => onPlusPress(props)}>
-              <View><Text style={numberControlStyle}>+</Text></View>
-            </TouchableOpacity>
-            <View>
-              <TextInput
-                keyboardType="numeric"
-                style={inputStyle}
-                value={quantity.toString()}
-                autoCorrect={false}
-              />
-            </View>
-            <TouchableOpacity onPress={() => onMinusPress(props)}>
-              <View><Text style={numberControlStyle}>-</Text></View>
-            </TouchableOpacity>
-          </View>
+          {props.updateItemQty && renderControls(quantity, props)}
         </Row>
       </View>
     </Container>

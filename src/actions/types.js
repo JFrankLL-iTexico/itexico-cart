@@ -18,3 +18,5 @@ export const SIGNIN_USER = 'signin_user';
 export const CREATE_ORDER = 'create_order';
 export const FETCH_ORDERS = 'fetch_orders';
 export const FETCH_ORDERS_SUCCESS = 'fetch_orders_success';
+export const FETCH_ORDER_PRODUCTS = 'fetch_order';
+export const FETCH_ORDER_PRODUCTS_SUCCESS = 'fetch_order_success';

@@ -7,6 +7,7 @@ import { logoutUser } from './actions';
 import AuthView from './components/auth/AuthView';
 import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
+import OrderDetail from './components/OrderDetail';
 import Cart from './components/Cart';
 import Orders from './components/Orders';
 import BagIcon from './components/BagIcon';
@@ -35,6 +36,7 @@ class RouterComponent extends Component {
               <Scene initial hideNavBar key="auth" component={AuthView} title="Home" />
             </Scene>
             <Scene key="main">
+              <Scene key="orderDetail" title="Order Detail" component={OrderDetail} />
               <Scene hideNavBar key="productDetail" component={ProductDetail} />
 
               <Scene initial hideNavBar tabs key="tabbar" style={{ backgroundColor: '#333' }} >

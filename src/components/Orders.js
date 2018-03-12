@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import { addItemToCart, fetchOrders } from '../actions';
+import { addItemToCart, fetchOrders, fetchOrderProducts } from '../actions';
 
 const Order = props => {
   const { date, _id } = props;
   return (
     <TouchableOpacity
-      onPress={() => {}}
+      onPress={() => props.expandDetail(_id)}
     >
       <View
         style={{
@@ -23,7 +23,14 @@ const Order = props => {
           <Text style={{ color: '#898989' }}>{ date }</Text>
           <Text style={{ color: '#c5c5c5' }}>Order id #{ _id }</Text>
         </View>
-        <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <Icon name="arrow-right" size={12} style={{ color: '#3a3a3a' }} />
         </View>
       </View>
@@ -43,6 +50,7 @@ class Orders extends Component {
         <Order
           key={`order-${idx}`}
           {...order}
+          expandDetail={this.props.fetchOrderProducts.bind(this)}
         />
       );
     });
@@ -65,5 +73,6 @@ const mapStateToProps = ({ orders }) => {
 
 export default connect(mapStateToProps, {
   addItemToCart,
-  fetchOrders
+  fetchOrders,
+  fetchOrderProducts
 })(Orders);
