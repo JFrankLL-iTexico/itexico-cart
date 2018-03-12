@@ -29,8 +29,7 @@ const styles = {
     alignSelf: 'stretch',
     backgroundColor: '#4eade7',
     borderRadius: 32,
-    paddingTop: 16,
-    paddingBottom: 16,
+    paddingVertical: 16,
     margin: 5
   }
 };

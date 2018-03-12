@@ -20,6 +20,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case USERNAME_CHANGED:
       return { ...state, username: action.payload };
@@ -42,6 +43,6 @@ export default (state = INITIAL_STATE, action) => {
     case LOGOUT_USER:
       return state;
     default:
-    return state;
+      return state;
   }
 };

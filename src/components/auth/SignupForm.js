@@ -6,7 +6,7 @@ import {
   emailChanged,
   phoneChanged,
   passwordChanged,
-  loginUser
+  signInUser
 } from '../../actions';
 import { Container, Row, Input, Button } from '../common';
 
@@ -25,6 +25,12 @@ class SignupForm extends Component {
 
   onPasswordChange(text) {
     this.props.passwordChanged(text);
+  }
+
+  onButtonPress() {
+    const { email, password } = this.props;
+
+    this.props.signInUser({ email, password });
   }
 
   render() {
@@ -69,7 +75,7 @@ class SignupForm extends Component {
 
         <Row>
           <Button
-            onPress={() => {}}
+            onPress={this.onButtonPress.bind(this)}
           >
             REGISTER
           </Button>
@@ -90,5 +96,5 @@ export default connect(mapStateToProps, {
   emailChanged,
   phoneChanged,
   passwordChanged,
-  loginUser
+  signInUser
 })(SignupForm);

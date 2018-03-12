@@ -10,9 +10,9 @@ class ProductList extends Component {
     this.fetchItems();
   }
 
-  onPressAddToCartButton() {
-    Actions.productDetail();
-    //this.props.addItemToCart();
+  onPressAddToCartButton(product) {
+    //Actions.productDetail();
+    this.props.addItemToCart(product);
   }
 
   fetchItems() {

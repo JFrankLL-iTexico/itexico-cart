@@ -11,11 +11,15 @@ import Cart from './components/Cart';
 import Orders from './components/Orders';
 import BagIcon from './components/BagIcon';
 
-const TabIcon = ({ selected, iconName }) => {
+const TabIcon = ({ focused, iconName }) => {
   const iconStyle = {
     fontSize: 24,
     color: '#8f8f8f',
   };
+  if (focused) {
+    iconStyle.backgroundColor = '#4eade7';
+    iconStyle.color = '#fff';
+  }
   return (
     <Icon name={iconName} style={iconStyle} />
   );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 class BagIcon extends Component {
@@ -20,7 +21,7 @@ class BagIcon extends Component {
           style={auxStyle}
         />
         <View style={numberStyle}>
-          <Text style={numberTextStyle}>10</Text>
+          <Text style={numberTextStyle}>{this.props.quantity}</Text>
         </View>
       </View>
     );
@@ -29,7 +30,8 @@ class BagIcon extends Component {
 
 const styles = {
   containerStyle: {
-    position: 'relative'
+    width: 30,
+    height: 30
   },
   iconStyle: {
     //margin: 'auto'
@@ -38,17 +40,15 @@ const styles = {
   tabbedIconStyle: {
     fontSize: 24,
     color: '#8f8f8f',
-    position: 'absolute',
-    top: -14,
-    left: -12
+    position: 'absolute'
   },
   numberStyle: {
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: 'green',
+    backgroundColor: '#64bb54',
     borderRadius: 50,
-    padding: 2
+    padding: 3
   },
   numberTextStyle: {
     color: '#fff',
@@ -56,4 +56,11 @@ const styles = {
   }
 };
 
-export default BagIcon;
+const mapStateToProps = ({ cart }) => {
+  const { items } = cart;
+  const quantity = items.length;
+
+  return { quantity };
+};
+
+export default connect(mapStateToProps, null)(BagIcon);
