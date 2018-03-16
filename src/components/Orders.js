@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { addItemToCart, fetchOrders, fetchOrderProducts } from '../actions';
@@ -40,35 +40,42 @@ const Order = props => {
 
 class Orders extends Component {
   componentWillMount() {
-    const id = '5a8b4a7bcd6dd4029ea52925';
+    const id = this.props.clientId;
     this.props.fetchOrders(id);
   }
 
   renderOrders() {
-    return this.props.orderList.slice().map((order, idx) => {
-      return (
+    let orders = [];
+
+    if (this.props.orderList.length) {
+      orders = this.props.orderList.map((order, idx) =>
         <Order
           key={`order-${idx}`}
           {...order}
           expandDetail={this.props.fetchOrderProducts.bind(this)}
         />
       );
-    });
+    }
+
+    return orders;
   }
 
   render() {
     return (
       <View>
-        {this.renderOrders()}
+        <ScrollView>
+          {this.renderOrders()}
+        </ScrollView>
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ orders }) => {
+const mapStateToProps = ({ orders, auth }) => {
   const { orderList } = orders;
+  const { clientId } = auth;
 
-  return { orderList };
+  return { orderList, clientId };
 };
 
 export default connect(mapStateToProps, {

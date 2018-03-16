@@ -3,6 +3,8 @@ import {
   FETCH_ORDERS_SUCCESS,
   FETCH_ORDER_PRODUCTS,
   FETCH_ORDER_PRODUCTS_SUCCESS,
+  ADD_ORDER_TO_LIST,
+  CREATE_ORDER_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,6 +24,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         orderList: action.payload
       };
+    case CREATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        orderList: [...state.orderList, action.payload]
+      };
     case FETCH_ORDER_PRODUCTS:
       return {
         ...state,
@@ -31,6 +38,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         products: action.payload
+      };
+    case ADD_ORDER_TO_LIST:
+      return {
+        ...state,
+        products: [...state.products, action.payload]
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 const CartButton = ({ onPress, text, total }) => {
   const {
@@ -10,7 +10,7 @@ const CartButton = ({ onPress, text, total }) => {
   return (
     <TouchableOpacity style={buttonStyle} onPress={onPress}>
       <Text style={textStyle}>{text}</Text>
-      <Text style={textStyle}>$ {total}</Text>
+      <Text style={textStyle}>$ {Number(total).toFixed(2)}</Text>
     </TouchableOpacity>
   );
 };

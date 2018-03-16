@@ -28,9 +28,9 @@ class SignupForm extends Component {
   }
 
   onButtonPress() {
-    const { email, password } = this.props;
+    const { username, email, password } = this.props;
 
-    this.props.signInUser({ email, password });
+    this.props.signInUser({ username, email, password });
   }
 
   render() {

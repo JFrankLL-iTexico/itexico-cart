@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { addItemToCart, updateItemQty, createOrder } from '../actions';
+import { addItemToCart, removeItemFromCart, updateItemQty, createOrder } from '../actions';
 import CartList from './CartList';
 import CartButton from './CartButton';
 import { Row } from './common';
@@ -23,9 +23,21 @@ class Cart extends Component {
         elt.product = elt._id;
         return elt;
       }),
-      client_id: '5a8b4a7bcd6dd4029ea52925'
+      client_id: this.props.clientId
     };
     this.props.createOrder(order);
+  }
+
+  renderButton() {
+    if (this.props.items.length) {
+      return (
+        <CartButton
+          text="PLACE THIS ORDER"
+          total={this.getTotalCost()}
+          onPress={this.createOrder.bind(this)}
+        />
+      );
+    }
   }
 
   render() {
@@ -35,28 +47,27 @@ class Cart extends Component {
       <View style={{ flex: 1 }}>
         <CartList
           updateItemQty={this.props.updateItemQty.bind(this)}
-          items={items}
+          removeItem={this.props.removeItemFromCart.bind(this)}
+          items={items.slice()}
         />
         <Row>
-          <CartButton
-            text="PLACE THIS ORDER"
-            total={this.getTotalCost()}
-            onPress={this.createOrder.bind(this)}
-          />
+          {this.renderButton()}
         </Row>
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = ({ cart, auth }) => {
   const { items } = cart;
+  const { clientId } = auth;
 
-  return { items };
+  return { items, clientId };
 };
 
 export default connect(mapStateToProps, {
   addItemToCart,
+  removeItemFromCart,
   updateItemQty,
   createOrder
 })(Cart);

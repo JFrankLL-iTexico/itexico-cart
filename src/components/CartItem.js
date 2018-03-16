@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Swipeout from 'react-native-swipeout';
 import { Row, Container } from './common';
 
 const onPlusPress = ({ updateItemQty, _id, quantity }) => {
@@ -7,7 +9,7 @@ const onPlusPress = ({ updateItemQty, _id, quantity }) => {
 };
 
 const onMinusPress = ({ updateItemQty, _id, quantity }) => {
-  updateItemQty(_id, quantity + (quantity > 0 ? -1 : 0));
+  updateItemQty(_id, quantity + (quantity > 1 ? -1 : 0));
 };
 
 const renderControls = (quantity, props) => {
@@ -36,8 +38,22 @@ const renderControls = (quantity, props) => {
   );
 };
 
+const renderRemoveButton = (id, props) => {
+  const { removeButtonStyle } = styles;
+  return (
+    <TouchableOpacity style={removeButtonStyle} onPress={() => props.remove(id)}>
+      <View>
+        <Icon
+          name="trash"
+          size={24}
+          style={{ color: '#9a9a9a' }}
+        />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 const CartItem = (props) => {
-  console.log('popopopo', props);
   const {
     name,
     imageUrl,
@@ -58,29 +74,41 @@ const CartItem = (props) => {
     altPriceStyle
   } = styles;
 
+  const swipeSettimgs = {
+    autoclose: true,
+    left: [{
+      onPress: () => props.remove(_id),
+      text: 'Delete',
+      type: 'delete'
+    }]
+  };
+
   return (
-    <Container>
-      <View style={containerStyle}>
-        <Row>
-          <Image
-            style={imageStyle}
-            source={{ uri: imageUrl }}
-          />
-          <View style={bodyWrapperStyle}>
-            <Text style={titleTextStyle}>{name}</Text>
-            <Row>
-              <Text style={tagStyle}>{category}</Text>
-              <Text style={tagStyle}>Stock: {stock}</Text>
-            </Row>
-            <Row>
-              <Text style={priceStyle}>$ {price}</Text>
-              <Text style={altPriceStyle}>$ 4999</Text>
-            </Row>
-          </View>
-          {props.updateItemQty && renderControls(quantity, props)}
-        </Row>
-      </View>
-    </Container>
+    <Swipeout {...swipeSettimgs}>
+      <Container>
+        <View style={containerStyle}>
+          <Row>
+            {/* {props.updateItemQty && renderRemoveButton(_id, props)} */}
+            <Image
+              style={imageStyle}
+              source={{ uri: imageUrl }}
+            />
+            <View style={bodyWrapperStyle}>
+              <Text style={titleTextStyle}>{name}</Text>
+              <Row>
+                <Text style={tagStyle}>{category}</Text>
+                <Text style={tagStyle}>Stock: {stock}</Text>
+              </Row>
+              <Row>
+                <Text style={priceStyle}>$ {price}</Text>
+                <Text style={altPriceStyle}>$ 4999</Text>
+              </Row>
+            </View>
+            {props.updateItemQty && renderControls(quantity, props)}
+          </Row>
+        </View>
+      </Container>
+    </Swipeout>
   );
 };
 
@@ -150,6 +178,11 @@ const styles = {
     width: 55,
     color: '#4eade7',
     textAlign: 'center'
+  },
+  removeButtonStyle: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 5
   }
 };
 

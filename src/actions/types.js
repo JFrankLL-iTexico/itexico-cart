@@ -9,13 +9,16 @@ export const LOGIN_USER = 'login_user';
 export const LOGOUT_USER = 'logout_user';
 
 export const ADD_ITEM = 'add_item';
+export const REMOVE_ITEM = 'remove_item';
 export const UPDATE_ITEM_QTY = 'update_item_quantity';
 export const FETCH_PRODUCTS = 'fetch_products';
 export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
 
 export const SIGNIN_USER = 'signin_user';
+export const SET_USER = 'set_user';
 
 export const CREATE_ORDER = 'create_order';
+export const CREATE_ORDER_SUCCESS = 'create_order_success';
 export const FETCH_ORDERS = 'fetch_orders';
 export const FETCH_ORDERS_SUCCESS = 'fetch_orders_success';
 export const FETCH_ORDER_PRODUCTS = 'fetch_order';
